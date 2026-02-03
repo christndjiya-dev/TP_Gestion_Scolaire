@@ -4,44 +4,78 @@ using namespace std;
 const int MAX_ELEVES = 30;
 
 int main() {
-    int nbEleves;
     string noms[MAX_ELEVES];
     float notes[MAX_ELEVES];
-    float somme = 0, moyenne;
+    int nbEleves = 0;
+    int choix;
+    float somme = 0, moyenne = 0;
 
-    cout << "Nombre d'eleves (max " << MAX_ELEVES << ") : ";
-    cin >> nbEleves;
+    do {
+        cout << "\n===== MENU =====\n";
+        cout << "1. Ajouter des eleves\n";
+        cout << "2. Saisir les notes\n";
+        cout << "3. Afficher les resultats\n";
+        cout << "4. Quitter\n";
+        cout << "Votre choix : ";
+        cin >> choix;
 
-    while (nbEleves < 1 || nbEleves > MAX_ELEVES) {
-        cout << "Nombre invalide. Reessayez : ";
-        cin >> nbEleves;
-    }
+        switch (choix) {
 
-    for (int i = 0; i < nbEleves; i++) {
-        cout << "Nom de l'eleve " << i + 1 << " : ";
-        cin >> noms[i];
-    }
+        case 1:  // Eleves
+            cout << "Nombre d'eleves (max " << MAX_ELEVES << ") : ";
+            cin >> nbEleves;
 
-    for (int i = 0; i < nbEleves; i++) {
-        cout << "Note de " << noms[i] << " : ";
-        cin >> notes[i];
+            while (nbEleves < 1 || nbEleves > MAX_ELEVES) {
+                cout << "Nombre invalide. Reessayez : ";
+                cin >> nbEleves;
+            }
 
-        while (notes[i] < 0 || notes[i] > 20) {
-            cout << "Note invalide. Reessayez : ";
-            cin >> notes[i];
+            for (int i = 0; i < nbEleves; i++) {
+                cout << "Nom de l'eleve " << i + 1 << " : ";
+                cin >> noms[i];
+            }
+            break;
+
+        case 2:  // Notes
+            if (nbEleves == 0) {
+                cout << "Aucun eleve enregistre.\n";
+            } else {
+                for (int i = 0; i < nbEleves; i++) {
+                    cout << "Note de " << noms[i] << " : ";
+                    cin >> notes[i];
+
+                    while (notes[i] < 0 || notes[i] > 20) {
+                        cout << "Note invalide. Reessayez : ";
+                        cin >> notes[i];
+                    }
+                }
+            }
+            break;
+
+        case 3:  // Calcul + affichage
+            if (nbEleves == 0) {
+                cout << "Aucun resultat a afficher.\n";
+            } else {
+                somme = 0;
+                cout << "\n--- Resultats ---\n";
+                for (int i = 0; i < nbEleves; i++) {
+                    cout << noms[i] << " : " << notes[i] << endl;
+                    somme += notes[i];
+                }
+                moyenne = somme / nbEleves;
+                cout << "Moyenne generale : " << moyenne << endl;
+            }
+            break;
+
+        case 4:  // Quitter
+            cout << "Fin du programme.\n";
+            break;
+
+        default:
+            cout << "Choix invalide.\n";
         }
 
-        somme += notes[i];
-    }
-
-    moyenne = somme / nbEleves;
-
-    cout << "\n--- Resultats ---\n";
-    for (int i = 0; i < nbEleves; i++) {
-        cout << noms[i] << " : " << notes[i] << endl;
-    }
-
-    cout << "Moyenne generale : " << moyenne << endl;
+    } while (choix != 4);
 
     return 0;
 }
