@@ -7,6 +7,7 @@ int main() {
     int nbEleves;
     string noms[MAX_ELEVES];
     float notes[MAX_ELEVES];
+    float somme = 0, moyenne;
 
     cout << "Nombre d'eleves (max " << MAX_ELEVES << ") : ";
     cin >> nbEleves;
@@ -29,7 +30,18 @@ int main() {
             cout << "Note invalide. Reessayez : ";
             cin >> notes[i];
         }
+
+        somme += notes[i];
     }
+
+    moyenne = somme / nbEleves;
+
+    cout << "\n--- Resultats ---\n";
+    for (int i = 0; i < nbEleves; i++) {
+        cout << noms[i] << " : " << notes[i] << endl;
+    }
+
+    cout << "Moyenne generale : " << moyenne << endl;
 
     return 0;
 }
